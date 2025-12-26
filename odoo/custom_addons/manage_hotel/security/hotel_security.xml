@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="group_hotel_receptionist" model="res.groups">
+            <field name="name">Hotel Receptionist</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+
+        <record id="group_hotel_manager" model="res.groups">
+            <field name="name">Hotel Manager</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+            <field name="implied_ids" eval="[(4, ref('group_hotel_receptionist'))]"/>
+        </record>
+
+        <record id="hotel_booking_receptionist_rule" model="ir.rule">
+            <field name="name">Lễ tân chỉ thấy booking draft/confirmed</field>
+            <field name="model_id" ref="model_hotel_booking"/>
+            <field name="domain_force">[('state', 'in', ['draft', 'confirmed'])]</field>
+            <field name="groups" eval="[(4, ref('group_hotel_receptionist'))]"/>
+        </record>
+    </data>
+</odoo>

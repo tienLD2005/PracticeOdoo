@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hotel_room_tree" model="ir.ui.view">
+        <field name="name">hotel.room.tree</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <tree string="Danh sách phòng">
+                <field name="name"/>
+                <field name="type_id"/>
+                <field name="floor"/>
+                <field name="price_per_night"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hotel_room_form" model="ir.ui.view">
+        <field name="name">hotel.room.form</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <form string="Phòng khách sạn">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="type_id"/>
+                            <field name="floor"/>
+                        </group>
+                        <group>
+                            <field name="price_per_night"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lịch sử đặt phòng">
+                            <field name="booking_ids" nolabel="1">
+                                <tree>
+                                    <field name="code"/>
+                                    <field name="customer_id"/>
+                                    <field name="check_in"/>
+                                    <field name="check_out"/>
+                                    <field name="total_amount"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hotel_room_search" model="ir.ui.view">
+        <field name="name">hotel.room.search</field>
+        <field name="model">hotel.room</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm phòng">
+                <field name="name"/>
+                <field name="type_id"/>
+                <separator/>
+                <filter string="Trống" name="available" domain="[('status', '=', 'available')]"/>
+                <filter string="Đang ở" name="occupied" domain="[('status', '=', 'occupied')]"/>
+                <filter string="Bảo trì" name="maintenance" domain="[('status', '=', 'maintenance')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hotel_room" model="ir.actions.act_window">
+        <field name="name">Danh sách Phòng</field>
+        <field name="res_model">hotel.room</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Tạo phòng mới!
+            </p>
+        </field>
+    </record>
+</odoo>
